@@ -30,6 +30,7 @@ module "diagnostic_storage_accounts" {
   client_config     = local.client_config
   storage_account   = each.value
   private_endpoints = try(each.value.private_endpoints, {})
+  vnets             = local.combined_objects_networking
 
   resource_group      = local.combined_objects_resource_groups[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group.key, each.value.resource_group_key)]
   resource_group_name = can(each.value.resource_group.name) || can(each.value.resource_group_name) ? try(each.value.resource_group.name, each.value.resource_group_name) : null
