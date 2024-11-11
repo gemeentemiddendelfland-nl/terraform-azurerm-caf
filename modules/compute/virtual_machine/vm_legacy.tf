@@ -34,6 +34,7 @@ resource "azurerm_virtual_machine" "vm" {
   resource_group_name              = local.resource_group_name
   vm_size                          = each.value.size
   network_interface_ids            = local.nic_ids
+  primary_network_interface_id     = local.nic_ids[0]
   zones                            = try([each.value.zones], null)
   tags                             = merge(local.tags, try(each.value.tags, null))
   delete_os_disk_on_termination    = try(each.value.delete_os_disk_on_termination, null)
