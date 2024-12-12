@@ -56,7 +56,7 @@ resource "azurerm_virtual_machine" "vm" {
       disable_password_authentication = try(each.value.os_profile_linux_config.disable_password_authentication, true)
 
       dynamic "ssh_keys" {
-        for_each = lookup(each.value.os_profile_linux_config, "disable_password_authentication", false) == false ? [] : [1]
+        for_each = each.value.os_profile_linux_config.disable_password_authentication == false ? [] : [1]
 
         content {
           key_data = local.create_sshkeys ? tls_private_key.ssh[each.key].public_key_openssh : file(var.settings.public_key_pem_file)
