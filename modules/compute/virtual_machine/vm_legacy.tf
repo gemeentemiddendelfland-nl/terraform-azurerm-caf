@@ -216,7 +216,7 @@ resource "azurerm_virtual_machine" "vm" {
 
 resource "random_password" "legacy" {
   for_each         = (local.os_type == "legacy") && (try(var.settings.virtual_machine_settings["legacy"].admin_password_key, null) == null) ? var.settings.virtual_machine_settings : {}
-  length           = 70
+  length           = 20
   min_upper        = 2
   min_lower        = 2
   min_special      = 2
